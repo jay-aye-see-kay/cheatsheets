@@ -132,7 +132,7 @@ product = reduce(lambda: sum, x: sum * x)
 ```
 
 # List comprehensions
-List comprehensions can replace all functionality of map and reduce functions the take the general form
+List comprehensions can replace all functionality of map and reduce functions they take the general form
 ```python
 new_list = [ expression for item in items ]
 ```
@@ -165,3 +165,26 @@ class Dog(Animal):
 my_dog = Dog('lucky')
 my_dog.bark()
 ```
+
+# Pip
+Pip is the python package manager. Packages are normally installed into a virtual environment (see below) to avoid conflicts between projects.
+* Install a package `pip install package-name`
+* Create a list of install packages `pip freeze > requirements.txt`
+* Install packages from a requirements file `pip install -r requirements.txt`
+
+# VirtualEnv and virtualenvwrapper
+Virtualenv creates a folder in you current directory and installs all python packages there to avoid conflicts with other python projects on the same system. This will leave virtualenv folder scattered across the system and may not be desirable. Virtualenvwrapper stores all virtualenvs in you home directory and provides some nicer tools to work with virtualenv.
+
+Virtualenv basic commands
+* `virtualenv venv` create a `venv` folder in current directory that will contain all virtualenv files
+* `virtualenv -p /usr/bin/python2.7 venv` choose python version for virtualenv (default is 3.6)
+* `source venv/bin/activate` activate the virtualenv
+* `deactivate` deactivate the virtualenv
+* `rm -rf venv` delete the virtualenv
+
+Virtualenvwrapper basic commands
+* `mkvirtualenv <env_name>` create a new virtualenv
+* `workon <env_name>` switch to `env_name`
+* `workon` list available virtualenvs 
+* `deactivate` deactivate the virtualenv
+* `rmvirtualenv <env_name>` delete the virtualenv

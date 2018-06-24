@@ -1,14 +1,31 @@
+# `django-admin` and `manage.py`
+`django-admin` and `manage.py` are basically the same program, with `django-admin` being install globally it's used to create a project, then each project has a `manage.py` that will load up any project specific settings, so this is normally used for everything else.
+
+* Create a project `django-admin startproject mysite`
+* Create an application (inside a project) `python manage.py startapp myapp`
+* Start the dev server `python manage.py runserver`
+* Create a super user `python manage.py createsuperuser`
+* Make migrations `python manage.py makemigrations myapp`
+* Run migrations `python manage.py migrate`
+
 # Models
 ## Basic example
+_For more details: https://docs.djangoproject.com/en/2.0/ref/models/fields/_
+
 ```python
 from django.db import models
 
 class Customer(models.Model):
     name = models.CharField(max_length=30)
-    address = models.TextField()
     email = models.EmailField()
     def __str__(self):
         return self.name
+
+class Order(models.Model):
+    customer = models.ForeignKey(Customer, on_delete=CASCADE)
+    details = ...
+    def __str__(self):
+        return self.id
 ```
 
 ## Available relationships
@@ -56,3 +73,54 @@ class Customer(models.Model):
 * __`GenericIPAddressField`__ An IPv4 or IPv6 address, in string format - The default form widget is `TextInput`
 * __`SlugField`__ Newspaper term, short label for something, containing only letters, numbers, underscores or hyphens (generally used for URLs)
 * __`URLField`__ A `CharField` for a URL - The default form widget is `TextInput`
+
+## Abstract base classes
+Abstract base classes are useful when you want to put some common information into a number of other models. You write your base class and put abstract=True in the Meta class. This model will then not be used to create any database table. 
+
+Example
+```python
+from django.db import models
+
+class Person(models.Model):
+    name = models.CharField(max_length=100)
+    age = models.PositiveIntegerField()
+
+    class Meta:
+        abstract = True
+
+class Student(CommonInfo):
+    home_group = models.CharField(max_length=5)
+```
+
+# Django API/shell
+Open an interactive shell `python manage.py shell`
+
+Example: Working with database data through models
+```python
+from myapp.models import Customer
+
+# show all customers
+Customer.objects.all()
+
+# Add a customer
+new_cust = Customer(name"Dave", email="dave@email.com")
+new_cust.save()
+
+# Search through customers (returns QuerySet)
+Customer.objects.filter(id=1)
+Customer.objects.filter(question_text__startswith='D')
+
+# Get one customer (raises exception if not found)
+Customer.objects.get(id=2)
+# Or the same lookup via primary key
+second_cust = Customer.objects.get(pk=2)
+
+# Display related info for customers (Customer hasMany Orders)
+second_cust.order_set.all()
+# Add an order manually
+second_cust.order_set.create(details="pants, hat, ...")
+
+# Delete above order
+temp_order = second_cust.order_set.filter(details__startswith="pants")
+temp_order.delete()
+```
