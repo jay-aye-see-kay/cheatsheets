@@ -34,17 +34,17 @@ class ComponentWithInput extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            inputValue = ''
+            inputValue = ''  // the input value is always stored here in the state not in the dom
         };
     }
-    inputChange = (event) => {
+    inputChange = (event) => {   // updating the state 
         this.setState({ inputValue: event.target.value })
     }
     render() {
         return (
             <input
-                value={this.state.inputValue}
-                onChange={this.inputChange}
+                value={this.state.inputValue} // the value is always a copy of what's stored in state
+                onChange={this.inputChange}  // the state is updated whenever the user changes this
             />
         )
     }
