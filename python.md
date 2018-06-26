@@ -128,7 +128,7 @@ squared_list = map(lambda x: x**2, list_to_be_squared)
 ```python
 from functools import reduce
 
-product = reduce(lambda: sum, x: sum * x)
+product = reduce(lambda sum, x: sum * x)
 ```
 
 # List comprehensions
