@@ -37,8 +37,8 @@ CREATE TABLE <tablename> (
 ```
 
 # other sql commands
-`\q` or `\quit`
-`\l` or `\list` (databases)
-`\c` or `\connect` (to a database)
-`\dt` (list tables in current db)
-`\?` (help)
+* `\q` or `\quit`
+* `\l` or `\list` (databases)
+* `\c` or `\connect` (to a database)
+* `\dt` (list tables in current db)
+* `\?` (help)
