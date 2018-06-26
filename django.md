@@ -124,3 +124,18 @@ second_cust.order_set.create(details="pants, hat, ...")
 temp_order = second_cust.order_set.filter(details__startswith="pants")
 temp_order.delete()
 ```
+
+# Routes
+By default Django seems to pass all http verbs through routes to controllers. For a get/post only route, use a decorator as below. See also https://docs.djangoproject.com/en/2.0/topics/http/decorators/
+
+```python
+from django.views.decorators import require_POST, require_GET
+
+@reuire_GET
+def index():
+    ...
+
+@require_POST
+def destroy():
+    ...
+```
